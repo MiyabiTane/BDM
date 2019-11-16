@@ -41,16 +41,19 @@ $ tightvncserver　（パスワード設定）
 ```
 <Mac側の操作><br>
   * アプリの立ち上げ<br>
-  * ウィンドウにラズパイのipアドレスを打ち込む
-  <img width="500" src="./images/ip_address.jpg">
-  <img width="500" src="./images/raspi_mac.jpg"><br>
-   ＊ディスプレイ番号が必要なので要注意<br>
-  * 先ほど指定したパスワードを入れる
-
+  * ウィンドウにラズパイのIPアドレスを打ち込む
+  * 先ほど指定したパスワードを入れる<br>
+  <br>
+  ＊IPアドレスはこれ
+  <img width="500" src="./images/ip_address.jpg"><br>
+  <br>
+  ＊ディスプレイ番号が必要なので要注意<br>
+  <img width="500" src="./images/raspi_mac.jpg"><br>   
+<br>
 
 ### 加速度センサ　MM8452Q
 * 繋ぎ方↓<br>
-<img width="320" src="./images/accl_sensor.png">
+<img width="400" src="./images/accl_sensor.png">
 
 
 #### 加速度検出　\~エラー解決編~
