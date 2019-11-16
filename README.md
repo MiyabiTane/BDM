@@ -15,7 +15,7 @@ USB付きキーボード<br>
 * 繋ぎ方の図↓
 <img src="./images/how_to_connect.jpg">
 
-**Raspi3　ピンの位置**
+**Raspberry pi3　ピンの位置**
 * <img width="300" src="./images/raspi_pin.png">
 <br>
 
@@ -42,8 +42,8 @@ $ tightvncserver　（パスワード設定）
 <Mac側の操作><br>
   * アプリの立ち上げ<br>
   * ウィンドウにラズパイのipアドレスを打ち込む
-  <img width="300" src="./images/ip_address.jpg">
-  <img width="300" src="./images/raspi_mac.jpg"><br>
+  <img width="500" src="./images/ip_address.jpg">
+  <img width="500" src="./images/raspi_mac.jpg"><br>
    ＊ディスプレイ番号が必要なので要注意<br>
   * 先ほど指定したパスワードを入れる
 
