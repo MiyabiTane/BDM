@@ -13,10 +13,10 @@ USB付きキーボード<br>
 **ディスプレイとの接続**<br>
 * [繋ぎ方はこのページが参考になる](https://iot.nifcloud.com/blog/2015/10/26/raspberry-pi-display/)
 * 繋ぎ方の図↓
-<img src="./images/how_to_cpnnect.jpg">
+<img src="./images/how_to_connect.jpg">
 
 **Raspi3　ピンの位置**
-* <img width="150" src="./images/raspi_pin.png">
+* <img width="300" src="./images/raspi_pin.png">
 <br>
 
 **インストール編**
@@ -42,14 +42,15 @@ $ tightvncserver　（パスワード設定）
 <Mac側の操作><br>
   * アプリの立ち上げ<br>
   * ウィンドウにラズパイのipアドレスを打ち込む
-  <img width="180" src="./images/ip_address.jpg">
-  <img width="180" src="./images/raspi_mac.jpg"> ＊ディスプレイ番号が必要なので要注意<br>
+  <img width="300" src="./images/ip_address.jpg">
+  <img width="300" src="./images/raspi_mac.jpg"><br>
+   ＊ディスプレイ番号が必要なので要注意<br>
   * 先ほど指定したパスワードを入れる
 
 
 ### 加速度センサ　MM8452Q
 * 繋ぎ方↓<br>
-<img width="300" src="./images/accl_sensor.png">
+<img width="320" src="./images/accl_sensor.png">
 
 
 #### 加速度検出　\~エラー解決編~
@@ -79,7 +80,7 @@ I/O error<br>
 [このページに載っているGitHubのコードをダウンロード！](http://jellyware.jp/kurage/raspi/led_stick.html)<br>
 ロジック変換しないでもいけてしまった...。<br>
 上記サイトの"回路結線図"以降を参照。
-strandtest.pyの中身を応用すれば良さそう！加速度の結果とどう結びつけるかは後日検討。
+strandtest.pyの中身を応用すれば良さそう！加速度の結果とどう結びつけるかは後日検討。<br>
 <img width="200" src="./images/led_rainbow.jpg">
 
 
