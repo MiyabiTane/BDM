@@ -15,8 +15,8 @@ USB付きキーボード<br>
 * 繋ぎ方の図↓
 <img src="./images/how_to_connect.jpg">
 
-**Raspberry pi3　ピンの位置**
-* <img width="300" src="./images/raspi_pin.png">
+**Raspberry pi3　ピンの位置**<br>
+<img width="300" src="./images/raspi_pin.png">
 <br>
 
 **インストール編**
@@ -43,10 +43,8 @@ $ tightvncserver　（パスワード設定）
   * アプリの立ち上げ<br>
   * ウィンドウにラズパイのIPアドレスを打ち込む
   * 先ほど指定したパスワードを入れる<br>
-  <br>
   ＊IPアドレスはこれ
   <img width="500" src="./images/ip_address.jpg"><br>
-  <br>
   ＊ディスプレイ番号が必要なので要注意<br>
   <img width="500" src="./images/raspi_mac.jpg"><br>   
 <br>
@@ -57,7 +55,7 @@ $ tightvncserver　（パスワード設定）
 
 
 #### 加速度検出　\~エラー解決編~
-* **case 1**<br>
+**case 1**<br>
 bus=smbus.SMBus(1)<br>
 [Error] No such file or directory<br>
 
@@ -68,7 +66,7 @@ Raspberry piのターミナルに<br>
 5 Interfacing Options ▶︎ P5 I2C ▶︎ <はい＞の順に選択。<br>
 リブートしてやり直す。<br>
 
-* **case 2**<br>
+**case 2**<br>
 I/O error<br>
 ▶︎ センサとの接続がうまく言っていないときにおこるエラー<br>
 　 まず以下をRaspberry piのターミナルに打ち込んでみる。<br>
@@ -77,7 +75,7 @@ I/O error<br>
  ▶︎ 全てが`--`になっているとき<br>
 センサとの接続が出来ていない。抑えながらやったり、回路を組み直したり、電源を抜いてやり直したりしてみる。<br>
 ▶︎`--`でない箇所があるとき<br>
-何かしらの文字（○○とする）が入っている部分がセンサからの入力がきている部分なので、自分の書いたプログラムで　I2C_ADDR=0x◯○　が正しく記入されているかを確認する。
+何かしらの文字（○○とする）が入っている部分がセンサからの入力がきている部分なので、自分の書いたプログラムで　I2C_ADDR=0x○○　が正しく記入されているかを確認する。
 
 ### フルカラーシリアルLEDテープ
 [このページに載っているGitHubのコードをダウンロード！](http://jellyware.jp/kurage/raspi/led_stick.html)<br>
@@ -88,7 +86,13 @@ strandtest.pyの中身を応用すれば良さそう！加速度の結果とど�
 
 
 ### スピーカー　CY-ET805D
-・まだ接続出来てません...。<br>
+* まだ接続出来てません...。<br>
   おそらくこのスピーカーなのだけどネットで調べると修理のページしか出てこない。安直に5VとGNDに繋げば良いのだろうか？<br>
-  [参考ページ？？](https://minkara.carview.co.jp/userid/539393/car/2388612/4410054/note.aspx)<br>
-▶︎ USBタイプのスピーカーを使ったほうが楽かも...。
+  [このスピーカー？？](https://minkara.carview.co.jp/userid/539393/car/2388612/4410054/note.aspx)<br>
+
+  [Raspberry pi 出力先の変更](https://iot-plus.net/make/raspi/speaker-open-jtalk-japanese-speech/)<br>
+  [pygameでmp3再生](https://qiita.com/week/items/ab190474eeb7c1fe9fc2)<br>
+
+* 330Ω抵抗一つ挟んでスピーカーを接続してみたら、Raspberry pi の画面が消えた。ちょっと危険かも？<br>
+
+▶︎ USBタイプのスピーカーを使ったほうが楽かも...。<br>
