@@ -43,7 +43,7 @@ $ tightvncserver　（パスワード設定）
   * アプリの立ち上げ<br>
   * ウィンドウにラズパイのIPアドレスを打ち込む
   * 先ほど指定したパスワードを入れる<br>
-  ＊IPアドレスはこれ
+  ＊IPアドレスはこれ<br>
   <img width="500" src="./images/ip_address.jpg"><br>
   ＊ディスプレイ番号が必要なので要注意<br>
   <img width="500" src="./images/raspi_mac.jpg"><br>   
