@@ -69,6 +69,8 @@ Raspberry piのターミナルに<br>
 **case 2**<br>
 I/O error<br>
 ▶︎ センサとの接続がうまく言っていないときにおこるエラー<br>
+
+**解決法**<br>
 　 まず以下をRaspberry piのターミナルに打ち込んでみる。<br>
 `$ i2cdetect -y 1`<br>
 
@@ -86,13 +88,43 @@ strandtest.pyの中身を応用すれば良さそう！加速度の結果とど�
 
 
 ### スピーカー　SP23MM
-* まだ接続出来てません...。<br>
-  [接続方法など](https://nobita-rx7.hatenablog.com/entry/27796888)<br>
-  今回はスイッチは使わない。コンデンサーも不要？直繋ぎOK？<br>
-* コードやラズパイの設定<br>
-  [Raspberry pi 出力先の変更](https://iot-plus.net/make/raspi/speaker-open-jtalk-japanese-speech/)<br>
+* 裏面左側を3.3V、右側をGNDに接続したらジージー音を立てた...。<br>
+  [このスピーカーいついて（接続方法など）](https://nobita-rx7.hatenablog.com/entry/27796888)<br>
+
+* コード<br>
   [pygameでmp3再生](https://qiita.com/week/items/ab190474eeb7c1fe9fc2)<br>
 
-* 330Ω抵抗一つ挟んでスピーカーを接続してみたら、Raspberry pi の画面が消えた。ちょっと危険かも？<br>
+#### スピーカーの音が鳴らない！　\~エラー解決編~
+**case 1**<br>
+スピーカーが接続できていない。<br>
 
-▶︎ USBタイプのスピーカーを使ったほうが楽かも...。<br>
+**確認方法(USBタイプのみ)**
+```bash
+$ lsusb
+```
+と打って、例えば
+```bash
+Bus 001 Device 004: ID 8086:0808 Intel Corp.
+・・・
+Bus 001 Device 006: ID 04f2:0939 Chicony Electronics Co., Ltd
+・・・
+```
+のように出力されればBus 001 Device 006: ID 04f2:0939 Chicony Electronics Co., Ltd　として認識されていることがわかる。<br>
+
+**case 2**<br>
+Raspberry piのオーディオ設定ミス
+
+**解決法**<br>
+出力先をHDMIに設定<br>
+```bash
+amixer cset numid=3 index
+```
+index=0:自動、index=1:アナログ出力（ヘッドホンジャック）、index=2:HDMIとなっている。次に<br>
+```bash
+sudo raspi-config
+```
+して 7 Advanced Options ▶︎ A4 Audio ▶︎ 上で選んだもの の順に選択する。<br>
+
+* HDMIから音が出ない場合、/boot/config.txt を編集して hdmi_drive=2 としてリブートする。<br>
+
+[このサイトも参考になる。](https://iot-plus.net/make/raspi/speaker-open-jtalk-japanese-speech/)<br>
