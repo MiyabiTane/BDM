@@ -85,11 +85,11 @@ strandtest.pyの中身を応用すれば良さそう！加速度の結果とど�
 <img width="200" src="./images/led_rainbow.jpg">
 
 
-### スピーカー　CY-ET805D
+### スピーカー　SP23MM
 * まだ接続出来てません...。<br>
-  おそらくこのスピーカーなのだけどネットで調べると修理のページしか出てこない。安直に5VとGNDに繋げば良いのだろうか？<br>
-  [このスピーカー？？](https://minkara.carview.co.jp/userid/539393/car/2388612/4410054/note.aspx)<br>
-
+  [接続方法など](https://nobita-rx7.hatenablog.com/entry/27796888)<br>
+  今回はスイッチは使わない。コンデンサーも不要？直繋ぎOK？<br>
+* コードやラズパイの設定<br>
   [Raspberry pi 出力先の変更](https://iot-plus.net/make/raspi/speaker-open-jtalk-japanese-speech/)<br>
   [pygameでmp3再生](https://qiita.com/week/items/ab190474eeb7c1fe9fc2)<br>
 
