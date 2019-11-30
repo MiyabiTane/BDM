@@ -1,3 +1,4 @@
+## BDM（ビックリドッキリメカ）をつくる
 ### Raspberry piの基本
 **初めに用意するもの<br>**
 Raspberry pi 本体<br>
@@ -23,6 +24,7 @@ USB付きキーボード<br>
 * matplotlib<br>
   * python3なら`$ pip3 install matplotlib`<br>
   * python2なら`$ sudo apt-get install python-matplotlib --fix-missing`
+* pygame<br>
 
 
 ### Raspberry piとMacを接続
@@ -87,12 +89,15 @@ strandtest.pyの中身を応用すれば良さそう！加速度の結果とど�
 <img width="200" src="./images/led_rainbow.jpg">
 
 
-### スピーカー　SP23MM
-* 裏面左側を3.3V、右側をGNDに接続したらジージー音を立てた...。<br>
-  [このスピーカーいついて（接続方法など）](https://nobita-rx7.hatenablog.com/entry/27796888)<br>
+### スピーカー　
+Raspberry piのイヤホンジャックに刺せるタイプのものを購入。Raspberry piの音声出力をイヤホンジャックに設定しておく。<br>
+<img width="200" src="./images/speaker.jpg"><br>
 
-* コード<br>
-  [pygameでmp3再生](https://qiita.com/week/items/ab190474eeb7c1fe9fc2)<br>
+[pygameを使ってRaspberry piで音を鳴らす。](https://qiita.com/Nyanpy/items/cb4ea8dc4dc01fe56918)<br>
+
+**スピーカー　SP23MM**
+* ~~裏面左側を3.3V、右側をGNDに接続したらジージー音を立てた...。~~イヤホンジャックに接続すれば鳴らせるけど音が小さいので却下。<br>
+  [このスピーカーについて（接続方法など）](https://nobita-rx7.hatenablog.com/entry/27796888)<br>
 
 #### スピーカーの音が鳴らない！　\~エラー解決編~
 **case 1**<br>
