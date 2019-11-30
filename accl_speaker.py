@@ -57,6 +57,6 @@ while True:
                 play_sound(hatena5) #hatena5:普通の足音
             else:
                 play_sound(hatena6) #hatena6:てけてけ
-            
-    #print("X,Y,Z-Axis : (%5d, %5d, %5d)" % (xAccl, yAccl, zAccl ))
+
+    print("X,Y,Z-Axis : (%5d, %5d, %5d)" % (xAccl, yAccl, zAccl ))
     time.sleep(1)
