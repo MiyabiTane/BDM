@@ -12,13 +12,25 @@ import matplotlib.pyplot as plt
 import smbus
 import time
 import math
+import threading
+
+ground=0
+grounds=[]
+
+def detect_ground():
+    global ground
+    key=input()
+    if key=='g':
+        ground=1
+    else:
+        ground=0
 
 def pause_plot():
     x = [] #時間(x軸)を格納する空リストの作成
     y_x = [] #加速度センサのx軸の値(y軸)を格納する空リストの作成
     y_y = [] #加速度センサのy軸の値(y軸)を格納する空リストの作成
     y_z = [] #加速度センサのz軸の値(y軸)を格納する空リストの作成
-    y_w = [] #加速度の大きさ(y軸)を格納する空リストの作成
+
 
 
     I2C_ADDR=0x1d #センサが入力されている場所の設定　場所は、i2cdetect -y 1 で確認
@@ -48,6 +60,9 @@ def pause_plot():
     # ここからCtrl+cまで無限にデータを取得し、リストに格納する
     try:
         while True:
+            # 別スレッドでキー入力の取得を開始
+            th = threading.Thread(target=detect_ground)
+            th.start()
             #時間の更新(ループは0.01秒で繰り返す)
             t+=0.01
             #加速度センサのデータを代入
@@ -80,6 +95,9 @@ def pause_plot():
             #加速度の大きさの更新
             y_w.append(w)
 
+            if ground==1:
+                grounds.append(t)
+
 
             print("X,Y,Z-Axis : (%5d, %5d, %5d)" % (xAccl, yAccl, zAccl ))
 
@@ -98,21 +116,25 @@ def pause_plot():
         ax1.plot(x, y_x, color="red")
         ax1.set_xlim(min(x), max(x))
         ax1.set_ylim(min(y_x)-10, max(y_x)+10)
+        ax1.axvline(grounds, ls = "--", color = "red")
         ax1.set_title("acceleration x-axis")
 
         ax2.plot(x, y_y, color="blue")
         ax2.set_xlim(min(x), max(x))
         ax2.set_ylim(min(y_y)-10, max(y_y)+10)
+        ax2.axvline(grounds, ls = "--", color = "red")
         ax2.set_title("acceleration y-axis")
 
         ax3.plot(x, y_z, color="green")
         ax3.set_xlim(min(x), max(x))
         ax3.set_ylim(min(y_z)-10, max(y_z)+10)
+        ax3.axvline(grounds, ls = "--", color = "red")
         ax3.set_title("acceleration z-axis")
 
         ax4.plot(x, y_z, color="black")
         ax4.set_xlim(min(x), max(x))
         ax4.set_ylim(0, max(y_w)+10)
+        ax4.axvline(grounds, ls = "--", color = "red")
         ax4.set_title("the magnitude of the acceleration")
 
         fig.savefig("graphs/accl_graph.png") #必要に応じてファイル名は変える
