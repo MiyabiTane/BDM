@@ -47,16 +47,20 @@ while True:
     zacc_list.append(zAccl)
 
     #１回目の接地では音は鳴らない
-    if hatena1:#接地条件by加速度
-        now_time=time.time()
-        get_time.append(now_time)
+    if len(xacc_list)>1 and xacc_list[-1]-xacc_list[-2]>1500:#接地条件by加速度
+        time_pre=time.time()
+        get_time.append(time_pre)
         if len(get_time)>2:
-            if get_time[-1]-get_time[-2]>hatena2: #hatena2:閾値その１
-                play_sound(hatena3) #hatena3:ぞうの足音とか
-            elif get_time[-1]-get_time[-2]>hatena4 and get_time[-1]-get_time[-2]<=hatena2: #hatena4:閾値その２
-                play_sound(hatena5) #hatena5:普通の足音
+            if get_time[-1]-get_time[-2]>1.8: #hatena2:閾値その１
+                play_sound(zun.mp3) #hatena3:ぞうの足音とか
+                time.sleep(800)
+                pygame.mixer.music.pause()
+            elif get_time[-1]-get_time[-2]>1.3 and get_time[-1]-get_time[-2]<=1.8: #hatena4:閾値その２
+                play_sound(pyuko.mp3) #hatena5:普通の足音
             else:
-                play_sound(hatena6) #hatena6:てけてけ
+                play_sound(tetetete.mp3) #hatena6:てけてけ
+                time.sleep(500)
+                pygame.mixer.music.pause()
 
     print("X,Y,Z-Axis : (%5d, %5d, %5d)" % (xAccl, yAccl, zAccl ))
     time.sleep(1)
