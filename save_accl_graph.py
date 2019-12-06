@@ -14,23 +14,14 @@ import time
 import math
 import threading
 
-ground=0
-grounds=[]
-
-def detect_ground():
-    global ground
-    key=input()
-    if key=='g':
-        ground=1
-    else:
-        ground=0
 
 def pause_plot():
     x = [] #時間(x軸)を格納する空リストの作成
     y_x = [] #加速度センサのx軸の値(y軸)を格納する空リストの作成
     y_y = [] #加速度センサのy軸の値(y軸)を格納する空リストの作成
     y_z = [] #加速度センサのz軸の値(y軸)を格納する空リストの作成
-
+    grounds=[]
+    key=input()
 
 
     I2C_ADDR=0x1d #センサが入力されている場所の設定　場所は、i2cdetect -y 1 で確認
@@ -60,9 +51,7 @@ def pause_plot():
     # ここからCtrl+cまで無限にデータを取得し、リストに格納する
     try:
         while True:
-            # 別スレッドでキー入力の取得を開始
-            th = threading.Thread(target=detect_ground)
-            th.start()
+            ground=0
             #時間の更新(ループは0.01秒で繰り返す)
             t+=0.01
             #加速度センサのデータを代入
@@ -95,10 +84,10 @@ def pause_plot():
             #加速度の大きさの更新
             y_w.append(w)
 
-            if ground==1:
+            if key=='g':
+                ground=1
                 grounds.append(t)
-
-
+            
             print("X,Y,Z-Axis : (%5d, %5d, %5d)" % (xAccl, yAccl, zAccl ))
 
 
