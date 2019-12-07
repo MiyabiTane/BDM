@@ -26,6 +26,20 @@ USB付きキーボード<br>
   * python2なら`$ sudo apt-get install python-matplotlib --fix-missing`
 * pygame<br>
 
+**Raspberry piでGitHub**
+```bash
+sudo apt-get install git
+cd /etc
+sudo git init
+sudo git config --global user.email "~.com"
+sudo git config --global user.name "MiyabiTane"
+```
+これで初期設定完了。PCと違うのはsudoが必要なところ<br>
+`git clone 持ってきたいレポジトリのページのURL`でレポジトリをローカルに持ってきてそこにファイルを追加し、
+```bash
+sudo git add ファイル名
+sudo git commit -m "コメント"
+```  
 
 ### Raspberry piとMacを接続
 * まずアプリをインストール :
