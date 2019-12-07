@@ -5,10 +5,9 @@
 # Direct port of the Arduino NeoPixel library strandtest example.  Showcases
 # various animations on a strip of NeoPixels.
 
-#後から埋める所はhatenaと記述してあります。
 import smbus
 import time
-import pygame.mixer
+#import pygame.mixer
 from neopixel import *
 import argparse
 get_time=[]
@@ -22,14 +21,6 @@ LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
 LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
-
-#music= ~.mp3
-def play_sound(music):
-    pygame.mixer.init() #init
-    pygame.mixer.music.load(music) #read
-    pygame.mixer.music.play(1) #do
-    time.sleep(3)
-    pygame.mixer.music.stop() #finish
 
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
@@ -88,28 +79,15 @@ def theaterChaseRainbow(strip, wait_ms=50):
             for i in range(0, strip.numPixels(), 3):
                 strip.setPixelColor(i+q, 0)
 
-#want_to_doに実現したい光り方を入れる
-# example : want_to_do=colorWipe(strip, Color(255, 0, 0))
-def LED_main(want_to_do):
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
-    args = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
+args = parser.parse_args()
 
-    # Create NeoPixel object with appropriate configuration.
-    strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-    # Intialize the library (must be called once before other functions).
-    strip.begin()
-
-    print ('Press Ctrl-C to quit.')
-    if not args.clear:
-        print('Use "-c" argument to clear LEDs on exit')
-    try:
-        while True:
-            want_to_do
-
-    except KeyboardInterrupt:
-        if args.clear:
-            colorWipe(strip, Color(0,0,0), 10)
+# Create NeoPixel object with appropriate configuration.
+strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+# Intialize the library (must be called once before other functions).
+strip.begin()
+print("init")
 
 I2C_ADDR=0x1d
 # Get I2C bus
@@ -144,21 +122,20 @@ while True:
         zAccl -= 4096
     zacc_list.append(zAccl)
 
-    #１回目の接地では音は鳴らない
-    if xAccl<=-1400 and yAccl>=20:#接地条件by加速度
+
+    if xAccl<=-1400 and yAccl>=20:
         now_time=time.time()
         get_time.append(now_time)
         if len(get_time)>2:
-            if get_time[-1]-get_time[-2]>0.5: #hatena2:閾値その１
-                #play_sound(hatena3) #hatena3:ぞうの足音とか
-                LED_main(colorWipe(strip, Color(0, 255, 0))) #hatena7:青色とか
-            elif get_time[-1]-get_time[-2]>0.2 and get_time[-1]-get_time[-2]<=0.5: #hatena4:閾値その２
-                #play_sound(hatena5) #hatena5:普通の足音
-                LED_main(rainbow(strip)) #hatena8:赤色とか
-            else:
-                #play_sound(hatena6) #hatena6:てけてけ
-                LED_main(theaterChase(strip, Color(127, 127, 127))) #hatena8:白いピカピカとか
-
+            if get_time[-1]-get_time[-2]>0.5: #slow walk
+                #play_sound(hatena3) #hatena3:zun.mp3
+                colorWipe(strip, Color(0, 255, 0)) #Blue Wipe
+            elif get_time[-1]-get_time[-2]>0.2 and get_time[-1]-get_time[-2]<=0.5: #nomal walk
+                #play_sound(hatena5) #hatena5:pyuko.mp3
+                rainbow(strip)
+            else: #fast walk
+                #play_sound(hatena6) #hatena6:tetetete.mp3
+                theaterChase(strip, Color(127, 127, 127))  # White theater chase
     print("X,Y,Z-Axis : (%5d, %5d, %5d)" % (xAccl, yAccl, zAccl ))
     time.sleep(0.01)
 
