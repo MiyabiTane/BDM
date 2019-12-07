@@ -83,9 +83,9 @@ while True:
         zAccl = (data[5] * 256 + data[6]) / 16
         if zAccl > 2047 :
             zAccl -= 4096
-        
-        if xAccl<=-1500 and yAccl>=1500:
+
+        if xAccl<=-1400 and yAccl>=20:
             gradationblueWipe(strip)
             disappearWipe(strip)
-            
+
         time.sleep(0.01)
