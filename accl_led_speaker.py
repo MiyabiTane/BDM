@@ -5,7 +5,6 @@
 # Direct port of the Arduino NeoPixel library strandtest example.  Showcases
 # various animations on a strip of NeoPixels.
 
-#後から埋める所はhatenaと記述してあります。
 import smbus
 import time
 import pygame.mixer
@@ -14,7 +13,7 @@ import argparse
 get_time=[]
 
 # LED strip configuration:
-LED_COUNT      = 16      # Number of LED pixels.
+LED_COUNT      = 30      # Number of LED pixels.
 LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!).
 #LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
@@ -28,18 +27,38 @@ def play_sound(music):
     pygame.mixer.init() #init
     pygame.mixer.music.load(music) #read
     pygame.mixer.music.play(1) #do
-    time.sleep(3)
+    time.sleep(1)
     pygame.mixer.music.stop() #finish
 
 # Define functions which animate LEDs in various ways.
-def colorWipe(strip, color, wait_ms=50):
+def gradationblueWipe(strip, wait_ms=20):
+    """Wipe color across display a pixel at a time."""
+    color=Color(0,0,255)
+    for i in range(strip.numPixels()/2):
+        strip.setPixelColor(strip.numPixels()/2-i-1, color+256*17*i)
+        strip.setPixelColor(i+strip.numPixels()/2, color+256*17*i)
+        #print(color)
+        strip.show()
+        time.sleep(wait_ms/1000.0)
+
+def disappearWipe(strip, wait_ms=20):
+    """Wipe color across display a pixel at a time."""
+    for i in range(strip.numPixels()/2):
+        strip.setPixelColor(strip.numPixels()/2-i-1, 0)
+        strip.setPixelColor(i+strip.numPixels()/2, 0)
+        #print(color)
+        strip.show()
+        time.sleep(wait_ms/1000.0)
+
+
+def colorWipe(strip, color, wait_ms=20):
     """Wipe color across display a pixel at a time."""
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, color)
         strip.show()
         time.sleep(wait_ms/1000.0)
 
-def theaterChase(strip, color, wait_ms=50, iterations=10):
+def theaterChase(strip, color, wait_ms=20, iterations=10):
     """Movie theater light style chaser animation."""
     for j in range(iterations):
         for q in range(3):
@@ -88,28 +107,17 @@ def theaterChaseRainbow(strip, wait_ms=50):
             for i in range(0, strip.numPixels(), 3):
                 strip.setPixelColor(i+q, 0)
 
-#want_to_doに実現したい光り方を入れる
-# example : want_to_do=colorWipe(strip, Color(255, 0, 0))
-def LED_main(want_to_do):
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
-    args = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
+args = parser.parse_args()
 
-    # Create NeoPixel object with appropriate configuration.
-    strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-    # Intialize the library (must be called once before other functions).
-    strip.begin()
+# Create NeoPixel object with appropriate configuration.
+strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+# Intialize the library (must be called once before other functions).
+strip.begin()
+print("init")
 
-    print ('Press Ctrl-C to quit.')
-    if not args.clear:
-        print('Use "-c" argument to clear LEDs on exit')
-    try:
-        while True:
-            want_to_do
 
-    except KeyboardInterrupt:
-        if args.clear:
-            colorWipe(strip, Color(0,0,0), 10)
 
 I2C_ADDR=0x1d
 # Get I2C bus
@@ -144,37 +152,23 @@ while True:
         zAccl -= 4096
     zacc_list.append(zAccl)
 
-    #１回目の接地では音は鳴らない
-    if hatena1:#接地条件by加速度
+
+    if xAccl<=1400 and yAccl>=80:
         now_time=time.time()
         get_time.append(now_time)
         if len(get_time)>2:
-            if get_time[-1]-get_time[-2]>hatena2: #hatena2:閾値その１
-                play_sound(hatena3) #hatena3:ぞうの足音とか
-                LED_main(hatena7) #hatena7:青色とか
-            elif get_time[-1]-get_time[-2]>hatena4 and get_time[-1]-get_time[-2]<=hatena2: #hatena4:閾値その２
-                play_sound(hatena5) #hatena5:普通の足音
-                LED_main(hatena8) #hatena8:赤色とか
-            else:
-                play_sound(hatena6) #hatena6:てけてけ
-                LED_main(hatena8) #hatena8:白いピカピカとか
-
+            print("time={}".format(get_time[-1]-get_time[-2]))
+            if get_time[-1]-get_time[-2]>3: #slow walk
+                play_sound("./sound/zun.mp3")
+                colorWipe(strip, Color(255, 0, 0)) #Green Wipe
+                disappearWipe(strip)
+            elif get_time[-1]-get_time[-2]>2 and get_time[-1]-get_time[-2]<=3: #nomal walk
+                play_sound("./sound/pyuko.mp3")
+                gradationblueWipe(strip)
+                disappearWipe(strip)
+            else: #fast walk
+                play_sound("./sound/tetetete.mp3")
+                theaterChase(strip, Color(127, 127, 127))  # White theater chase
+                disappearWipe(strip)
     print("X,Y,Z-Axis : (%5d, %5d, %5d)" % (xAccl, yAccl, zAccl ))
-    time.sleep(1)
-
-
-
-#-----('Color wipe animations.')----
-#colorWipe(strip, Color(255, 0, 0))  # Red wipe
-#colorWipe(strip, Color(0, 255, 0))  # Blue wipe
-#colorWipe(strip, Color(0, 0, 255))  # Green wipe
-
-#----('Theater chase animations.')----
-#theaterChase(strip, Color(127, 127, 127))  # White theater chase
-#theaterChase(strip, Color(127,   0,   0))  # Red theater chase
-#theaterChase(strip, Color(  0,   0, 127))  # Blue theater chase
-
-#----('Rainbow animations.')----
-#rainbow(strip)
-#rainbowCycle(strip)
-#theaterChaseRainbow(strip)
+    time.sleep(0.01)
