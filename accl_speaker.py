@@ -47,12 +47,12 @@ while True:
     zacc_list.append(zAccl)
 
     #１回目の接地では音は鳴らない
-    if xAccl<-1000 and yAccl>0:#接地条件by加速度
+    if xAccl<-1400 and yAccl>20:#接地条件by加速度
         time_pre=time.time()
         get_time.append(time_pre)
         if len(get_time)>2:
             print("time_diff={}".format(get_time[-1]-get_time[-2]))
-            if get_time[-1]-get_time[-2]>0.8 #hatena2:閾値その１
+            if get_time[-1]-get_time[-2]>0.8: #hatena2:閾値その１
                 play_sound("./sounds/zun.mp3") #hatena3:ぞうの足音とか
                 #time.sleep(0.08)
                 #pygame.mixer.music.pause()
