@@ -22,8 +22,8 @@ USB付きキーボード<br>
 
 **インストール編**
 * matplotlib<br>
-  * python3なら`$ pip3 install matplotlib`<br>
-  * python2なら`$ sudo apt-get install python-matplotlib --fix-missing`
+  * python3なら`pip3 install matplotlib`<br>
+  * python2なら`sudo apt-get install python-matplotlib --fix-missing`
 * pygame<br>
 
 **Raspberry piでGitHub**
@@ -47,13 +47,13 @@ sudo git commit -m "コメント"
 * 実行するコード<br>
 <Raspberry pi側の操作>
 ```
-$ sudo apt-get update
-$ sudo apt-get upgrade
+sudo apt-get update
+sudo apt-get upgrade
 ```
 Wi-fiに繋がっていることを確認してから
 ```
-$ sudo apt-get install tightvncserver
-$ tightvncserver　（パスワード設定）
+sudo apt-get install tightvncserver
+tightvncserver　（パスワード設定）
 ```
 <Mac側の操作><br>
   * アプリの立ち上げ<br>
@@ -77,7 +77,7 @@ bus=smbus.SMBus(1)<br>
 
  **解決法**<br>
 Raspberry piのターミナルに<br>
-`$raspi-config`
+`raspi-config`
 を打ち込んで出てきた画面で<br>
 5 Interfacing Options ▶︎ P5 I2C ▶︎ <はい＞の順に選択。<br>
 リブートしてやり直す。<br>
@@ -88,7 +88,7 @@ I/O error<br>
 
 **解決法**<br>
 　 まず以下をRaspberry piのターミナルに打ち込んでみる。<br>
-`$ i2cdetect -y 1`<br>
+`i2cdetect -y 1`<br>
 
  ▶︎ 全てが`--`になっているとき<br>
 センサとの接続が出来ていない。抑えながらやったり、回路を組み直したり、電源を抜いてやり直したりしてみる。<br>
@@ -109,8 +109,10 @@ Raspberry piのイヤホンジャックに刺せるタイプのものを購入�
 
 [pygameを使ってRaspberry piで音を鳴らす。](https://qiita.com/Nyanpy/items/cb4ea8dc4dc01fe56918)<br>
 
-**スピーカー　SP23MM**
-* ~~裏面左側を3.3V、右側をGNDに接続したらジージー音を立てた...。~~イヤホンジャックに接続すれば鳴らせるけど音が小さいので却下。<br>
+音源編集について、音源のボリュームを変えたい時は[ボリューム変換ページ](https://www.mp3louder.com/jp/)、長さを編集したい時は[音源カッターのページ](https://mp3cut.net/ja/)を使うと良い。<br>
+
+**スピーカー　SP23MM**<br>
+~~裏面左側を3.3V、右側をGNDに接続したらジージー音を立てた...。~~イヤホンジャックに接続すれば鳴らせるけど音が小さいので却下。<br>
   [このスピーカーについて（接続方法など）](https://nobita-rx7.hatenablog.com/entry/27796888)<br>
 
 #### スピーカーの音が鳴らない！　\~エラー解決編~
@@ -119,7 +121,7 @@ Raspberry piのイヤホンジャックに刺せるタイプのものを購入�
 
 **確認方法(USBタイプのみ)**
 ```bash
-$ lsusb
+lsusb
 ```
 と打って、例えば
 ```bash
