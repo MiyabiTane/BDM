@@ -143,16 +143,16 @@ while True:
     zacc_list.append(zAccl)
 
 
-    if xAccl<=-1400 and yAccl>=20:
+    if xAccl<=1400 and yAccl>=80:
         now_time=time.time()
         get_time.append(now_time)
         if len(get_time)>2:
             print("time={}".format(get_time[-1]-get_time[-2]))
-            if get_time[-1]-get_time[-2]>3: #slow walk
+            if get_time[-1]-get_time[-2]>2: #slow walk
                 #play_sound(hatena3) #hatena3:zun.mp3
                 colorWipe(strip, Color(255, 0, 0)) #Blue Wipe
                 disappearWipe(strip)
-            elif get_time[-1]-get_time[-2]>2 and get_time[-1]-get_time[-2]<=3: #nomal walk
+            elif get_time[-1]-get_time[-2]>1.5 and get_time[-1]-get_time[-2]<=2: #nomal walk
                 #play_sound(hatena5) #hatena5:pyuko.mp3
                 gradationblueWipe(strip)
                 disappearWipe(strip)
