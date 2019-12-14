@@ -4,15 +4,15 @@ import time
 import pygame.mixer
 get_time=[]
 
+
 #music= ~.mp3
 def play_sound(music):
     pygame.mixer.init() #init
     pygame.mixer.music.load(music) #read
     pygame.mixer.music.play(1) #do
-    time.sleep(0.03)
+    time.sleep(1)
     pygame.mixer.music.stop() #finish
-
-
+    
 I2C_ADDR=0x1d
 # Get I2C bus
 bus = smbus.SMBus(1)
@@ -47,21 +47,19 @@ while True:
     zacc_list.append(zAccl)
 
     #１回目の接地では音は鳴らない
-    if xAccl<-1400 and yAccl>20:#接地条件by加速度
+    if xAccl<-1400 and yAccl>80:#接地条件by加速度
         time_pre=time.time()
         get_time.append(time_pre)
         if len(get_time)>2:
             print("time_diff={}".format(get_time[-1]-get_time[-2]))
-            if get_time[-1]-get_time[-2]>0.8: #hatena2:閾値その１
-                play_sound("./sounds/zun.mp3") #hatena3:ぞうの足音とか
-                #time.sleep(0.08)
-                #pygame.mixer.music.pause()
-            elif get_time[-1]-get_time[-2]>0.4 and get_time[-1]-get_time[-2]<=0.8: #hatena4:閾値その２
-                play_sound("./sounds/pyuko.mp3") #hatena5:普通の足音
+            if get_time[-1]-get_time[-2]>3: #hatena2:閾値その１
+                play_sound("./sound/zun.mp3") #hatena3:ぞうの足音とか
+                
+            elif get_time[-1]-get_time[-2]>2 and get_time[-1]-get_time[-2]<=3: #hatena4:閾値その２
+                play_sound("./sound/pyuko.mp3") #hatena5:普通の足音
             else:
-                play_sound("./sounds/tetetete.mp3") #hatena6:てけてけ
-                #time.sleep(0.05)
-                #pygame.mixer.music.pause()
+                play_sound("./sound/tetetete.mp3") #hatena6:てけてけ
+                
 
     print("X,Y,Z-Axis : (%5d, %5d, %5d)" % (xAccl, yAccl, zAccl ))
     time.sleep(0.01)
