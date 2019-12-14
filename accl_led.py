@@ -23,6 +23,26 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
 # Define functions which animate LEDs in various ways.
+def gradationblueWipe(strip, wait_ms=20):
+    """Wipe color across display a pixel at a time."""
+    color=Color(0,0,255)
+    for i in range(strip.numPixels()/2):
+        strip.setPixelColor(strip.numPixels()/2-i-1, color+256*17*i)
+        strip.setPixelColor(i+strip.numPixels()/2, color+256*17*i)
+        #print(color)
+        strip.show()
+        time.sleep(wait_ms/1000.0)
+
+def disappearWipe(strip, wait_ms=20):
+    """Wipe color across display a pixel at a time."""
+    for i in range(strip.numPixels()/2):
+        strip.setPixelColor(strip.numPixels()/2-i-1, 0)
+        strip.setPixelColor(i+strip.numPixels()/2, 0)
+        #print(color)
+        strip.show()
+        time.sleep(wait_ms/1000.0)
+
+
 def colorWipe(strip, color, wait_ms=50):
     """Wipe color across display a pixel at a time."""
     for i in range(strip.numPixels()):
@@ -130,12 +150,15 @@ while True:
             if get_time[-1]-get_time[-2]>0.5: #slow walk
                 #play_sound(hatena3) #hatena3:zun.mp3
                 colorWipe(strip, Color(0, 255, 0)) #Blue Wipe
+                disappearWipe(strip)
             elif get_time[-1]-get_time[-2]>0.2 and get_time[-1]-get_time[-2]<=0.5: #nomal walk
                 #play_sound(hatena5) #hatena5:pyuko.mp3
-                rainbow(strip)
+                gradationblueWipe(strip)
+                disappearWipe(strip)
             else: #fast walk
                 #play_sound(hatena6) #hatena6:tetetete.mp3
                 theaterChase(strip, Color(127, 127, 127))  # White theater chase
+                disappearWipe(strip)
     print("X,Y,Z-Axis : (%5d, %5d, %5d)" % (xAccl, yAccl, zAccl ))
     time.sleep(0.01)
 
