@@ -43,14 +43,14 @@ def disappearWipe(strip, wait_ms=20):
         time.sleep(wait_ms/1000.0)
 
 
-def colorWipe(strip, color, wait_ms=50):
+def colorWipe(strip, color, wait_ms=20):
     """Wipe color across display a pixel at a time."""
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, color)
         strip.show()
         time.sleep(wait_ms/1000.0)
 
-def theaterChase(strip, color, wait_ms=50, iterations=10):
+def theaterChase(strip, color, wait_ms=20, iterations=10):
     """Movie theater light style chaser animation."""
     for j in range(iterations):
         for q in range(3):
@@ -147,11 +147,12 @@ while True:
         now_time=time.time()
         get_time.append(now_time)
         if len(get_time)>2:
-            if get_time[-1]-get_time[-2]>0.5: #slow walk
+            print("time={}".format(get_time[-1]-get_time[-2]))
+            if get_time[-1]-get_time[-2]>3: #slow walk
                 #play_sound(hatena3) #hatena3:zun.mp3
-                colorWipe(strip, Color(0, 255, 0)) #Blue Wipe
+                colorWipe(strip, Color(255, 0, 0)) #Blue Wipe
                 disappearWipe(strip)
-            elif get_time[-1]-get_time[-2]>0.2 and get_time[-1]-get_time[-2]<=0.5: #nomal walk
+            elif get_time[-1]-get_time[-2]>2 and get_time[-1]-get_time[-2]<=3: #nomal walk
                 #play_sound(hatena5) #hatena5:pyuko.mp3
                 gradationblueWipe(strip)
                 disappearWipe(strip)
