@@ -41,6 +41,26 @@ def gradationblueWipe(strip, wait_ms=20):
         strip.show()
         time.sleep(wait_ms/1000.0)
 
+def gradationredWipe(strip, wait_ms=10):
+    """Wipe color across display a pixel at a time."""
+    color=Color(0,255,0)
+    for i in range(strip.numPixels()/2):
+        strip.setPixelColor(strip.numPixels()/2-i-1, color+256*256*7*i)
+        strip.setPixelColor(i+strip.numPixels()/2, color+256*256*7*i)
+        #print(color)
+        strip.show()
+        time.sleep(wait_ms/1000.0)
+
+def gradationgreenWipe(strip, wait_ms=10):
+    """Wipe color across display a pixel at a time."""
+    color=Color(255,50,0)
+    for i in range(strip.numPixels()/2):
+        strip.setPixelColor(strip.numPixels()/2-i-1, color+256*15*i)
+        strip.setPixelColor(i+strip.numPixels()/2, color+256*15*i)
+        #print(color)
+        strip.show()
+        time.sleep(wait_ms/1000.0)
+
 def disappearWipe(strip, wait_ms=20):
     """Wipe color across display a pixel at a time."""
     for i in range(strip.numPixels()/2):
@@ -160,7 +180,7 @@ while True:
             print("time={}".format(get_time[-1]-get_time[-2]))
             if get_time[-1]-get_time[-2]>3: #slow walk
                 play_sound("./sound/zun.mp3")
-                colorWipe(strip, Color(255, 0, 0)) #Green Wipe
+                gradationredWipe(strip)
                 disappearWipe(strip)
             elif get_time[-1]-get_time[-2]>2 and get_time[-1]-get_time[-2]<=3: #nomal walk
                 play_sound("./sound/pyuko.mp3")
@@ -168,7 +188,7 @@ while True:
                 disappearWipe(strip)
             else: #fast walk
                 play_sound("./sound/tetetete.mp3")
-                theaterChase(strip, Color(127, 127, 127))  # White theater chase
+                gradationgreenWipe(strip)
                 disappearWipe(strip)
     print("X,Y,Z-Axis : (%5d, %5d, %5d)" % (xAccl, yAccl, zAccl ))
     time.sleep(0.01)
