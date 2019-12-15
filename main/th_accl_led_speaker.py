@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, print_function
 
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import smbus
 import time
 import math
@@ -24,6 +24,12 @@ LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
+def play_sound(music):
+    pygame.mixer.init() #init
+    pygame.mixer.music.load(music) #read
+    pygame.mixer.music.play(1) #do
+    time.sleep(1)
+    pygame.mixer.music.stop() #finish
 
 def gradationblueWipe(strip, wait_ms=20):
     """Wipe color across display a pixel at a time."""
@@ -148,7 +154,7 @@ def led_control():
                 get_time1.append(current_time)
 
                 if len(get_time1)>=2:
-                    print("time={}".format(get_time[-1]-get_time[-2]))
+                    print("time={}".format(get_time1[-1]-get_time1[-2]))
                     if get_time1[-1]-get_time1[-2]>1.5: #slow walk
                         gradationredWipe(strip)
                         disappearWipe(strip)
@@ -184,12 +190,12 @@ def sound_control():
 
             if len(get_time2)>=2:
                 if get_time2[-1]-get_time2[-2]>1.5: #slow walk
-                    slow_walk.play()
+                    play_sound("./sound/zun.mp3")
                 elif get_time2[-1]-get_time2[-2]>0.7 and get_time2[-1]-get_time2[-2]<=1.5: #nomal walk
-                    normal_walk.play()
+                    play_sound("./pyuko.mp3")
                 else: #fast walk
-                    fast_walk.play()
-                    
+                    play_sound("./sound/tetetete.mp3")
+
         time.sleep(0.01)
 
 thread1=threading.Thread(target=led_control)
