@@ -81,7 +81,7 @@ def pause_plot():
             y_w.append(w)
 
 
-            print("X,Y,Z-Axis : (%5d, %5d, %5d)" % (xAccl, yAccl, zAccl ))
+            print("X,Y,Z-Axis,w: (%5d, %5d, %5d, %5d)" % (xAccl, yAccl, zAccl,w))
 
 
             time.sleep(0.01) #この値によって、何秒に１回センサの値を取得するかが変わる　今は100Hz
