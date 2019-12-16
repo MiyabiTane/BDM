@@ -13,6 +13,8 @@ import threading
 
 get_time1=[]
 get_time2=[]
+w_pre1=[]
+w_pre2=[]
 
 # LED strip configuration:
 LED_COUNT      = 30      # Number of LED pixels.
@@ -150,6 +152,7 @@ def led_control():
                 zAccl -= 4096
 
             w = math.sqrt(xAccl**2 + yAccl**2 + zAccl**2) #加速度の大きさ
+            w_pre1.append(w)
 
             if xAccl<=-1400 and yAccl>=80:
                 current_time=time.time()
@@ -166,6 +169,10 @@ def led_control():
                     else: #fast walk
                         gradationgreenWipe(strip)
                         disappearWipe(strip)
+
+                if len(w_pre2)>2 and 100<np.abs(w_pre2[-1]-w_pre2[-2]) and np.abs(w_pre2[-1]-w_pre2[-2])<500
+                    rainbowCycle(strip)
+                    disappearWipe(strip)
 
             time.sleep(0.01)
 
@@ -185,7 +192,7 @@ def sound_control():
             zAccl -= 4096
 
         w = math.sqrt(xAccl**2 + yAccl**2 + zAccl**2) #加速度の大きさ
-        
+        w_pre2.append(w)
 
         if xAccl<=-1400 and yAccl>=80:
             current_time=time.time()
@@ -205,11 +212,11 @@ def sound_control():
         #if xAccl>=1000 and yAccl>=1000 and zAccl>=1000:
             #cast.play()
             #time.sleep(0.3)
-            
-        if zAccl>2000 and yAccl>1000:
+
+        if len(w_pre2)>2 and 100<np.abs(w_pre2[-1]-w_pre2[-2]) and np.abs(w_pre2[-1]-w_pre2[-2])<500
             turn.play()
             time.sleep(0.3)
-            
+
         time.sleep(0.01)
 
 thread1=threading.Thread(target=led_control)
