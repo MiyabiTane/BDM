@@ -170,7 +170,7 @@ def led_control():
                         gradationgreenWipe(strip)
                         disappearWipe(strip)
 
-                if len(w_pre2)>2 and 100<np.abs(w_pre2[-1]-w_pre2[-2]) and np.abs(w_pre2[-1]-w_pre2[-2])<500
+                if len(w_pre2)>2 and 500<np.abs(w_pre2[-1]-w_pre2[-2]) and np.abs(w_pre2[-1]-w_pre2[-2])<1500 and zAccl>1500:
                     rainbowCycle(strip)
                     disappearWipe(strip)
 
@@ -213,7 +213,7 @@ def sound_control():
             #cast.play()
             #time.sleep(0.3)
 
-        if len(w_pre2)>2 and 100<np.abs(w_pre2[-1]-w_pre2[-2]) and np.abs(w_pre2[-1]-w_pre2[-2])<500
+        if len(w_pre2)>2 and 500<np.abs(w_pre2[-1]-w_pre2[-2]) and np.abs(w_pre2[-1]-w_pre2[-2])<1500 and zAccl>1500:
             turn.play()
             time.sleep(0.3)
 
