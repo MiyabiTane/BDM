@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, print_function
 
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import smbus
 import time
 import math
@@ -24,12 +24,6 @@ LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
-def play_sound(music):
-    pygame.mixer.init() #init
-    pygame.mixer.music.load(music) #read
-    pygame.mixer.music.play(1) #do
-    time.sleep(1)
-    pygame.mixer.music.stop() #finish
 
 def gradationblueWipe(strip, wait_ms=20):
     """Wipe color across display a pixel at a time."""
@@ -130,6 +124,12 @@ strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, 
 # Intialize the library (must be called once before other functions).
 strip.begin()
 
+pygame.init()
+
+nomal_walk=pygame.mixer.Sound("./sound/pyuko.ogg")
+slow_walk=pygame.mixer.Sound("./sound/zun.ogg")
+fast_walk=pygame.mixer.Sound("./sound/tetetete.ogg")
+
 print("init")
 
 def led_control():
@@ -154,7 +154,7 @@ def led_control():
                 get_time1.append(current_time)
 
                 if len(get_time1)>=2:
-                    print("time={}".format(get_time[-1]-get_time[-2]))
+                    print("time={}".format(get_time1[-1]-get_time1[-2]))
                     if get_time1[-1]-get_time1[-2]>1.5: #slow walk
                         gradationredWipe(strip)
                         disappearWipe(strip)
@@ -190,11 +190,14 @@ def sound_control():
 
             if len(get_time2)>=2:
                 if get_time2[-1]-get_time2[-2]>1.5: #slow walk
-                    play_sound("./sound/zun.mp3")
+                    slow_walk.play()
+                    time.sleep(1)
                 elif get_time2[-1]-get_time2[-2]>0.7 and get_time2[-1]-get_time2[-2]<=1.5: #nomal walk
-                    play_sound("./pyuko.mp3")
+                    nomal_walk.play()
+                    time.sleep(1)
                 else: #fast walk
-                    play_sound("./sound/tetetete.mp3")
+                    fast_walk.play()
+                    time.sleep(1)
 
         time.sleep(0.01)
 
