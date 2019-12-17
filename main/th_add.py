@@ -170,9 +170,9 @@ def led_control():
                         gradationgreenWipe(strip)
                         disappearWipe(strip)
 
-                if len(w_pre2)>2 and 500<np.abs(w_pre2[-1]-w_pre2[-2]) and np.abs(w_pre2[-1]-w_pre2[-2])<1500 and zAccl>1500:
-                    rainbowCycle(strip)
-                    disappearWipe(strip)
+            if len(w_pre1)>2 and 500<np.abs(w_pre1[-1]-w_pre1[-2]) and np.abs(w_pre1[-1]-w_pre1[-2])<1500 and zAccl>1500:
+                rainbowCycle(strip)
+                disappearWipe(strip)
 
             time.sleep(0.01)
 
