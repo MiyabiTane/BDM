@@ -13,6 +13,8 @@ import threading
 
 get_time1=[]
 get_time2=[]
+w_pre1=[]
+w_pre2=[]
 
 # LED strip configuration:
 LED_COUNT      = 30      # Number of LED pixels.
@@ -129,6 +131,8 @@ pygame.init()
 nomal_walk=pygame.mixer.Sound("./sound/pyuko.ogg")
 slow_walk=pygame.mixer.Sound("./sound/zun.ogg")
 fast_walk=pygame.mixer.Sound("./sound/tetetete.ogg")
+cast=pygame.mixer.Sound("./sound/can.ogg")
+turn=pygame.mixer.Sound("./sound/turn1.ogg")
 
 print("init")
 
@@ -148,6 +152,7 @@ def led_control():
                 zAccl -= 4096
 
             w = math.sqrt(xAccl**2 + yAccl**2 + zAccl**2) #加速度の大きさ
+            w_pre1.append(w)
 
             if xAccl<=-1400 and yAccl>=80:
                 current_time=time.time()
@@ -164,6 +169,10 @@ def led_control():
                     else: #fast walk
                         gradationgreenWipe(strip)
                         disappearWipe(strip)
+
+                if len(w_pre2)>2 and 500<np.abs(w_pre2[-1]-w_pre2[-2]) and np.abs(w_pre2[-1]-w_pre2[-2])<1500 and zAccl>1500:
+                    rainbowCycle(strip)
+                    disappearWipe(strip)
 
             time.sleep(0.01)
 
@@ -183,21 +192,30 @@ def sound_control():
             zAccl -= 4096
 
         w = math.sqrt(xAccl**2 + yAccl**2 + zAccl**2) #加速度の大きさ
+        w_pre2.append(w)
 
-        if xAccl<=-1500 and yAccl>=1500:
+        if xAccl<=-1400 and yAccl>=80:
             current_time=time.time()
             get_time2.append(current_time)
 
             if len(get_time2)>=2:
                 if get_time2[-1]-get_time2[-2]>1.5: #slow walk
                     slow_walk.play()
-                    time.sleep(1)
+                    time.sleep(0.3)
                 elif get_time2[-1]-get_time2[-2]>0.7 and get_time2[-1]-get_time2[-2]<=1.5: #nomal walk
                     nomal_walk.play()
-                    time.sleep(1)
+                    time.sleep(0.3)
                 else: #fast walk
                     fast_walk.play()
-                    time.sleep(1)
+                    time.sleep(0.3)
+
+        #if xAccl>=1000 and yAccl>=1000 and zAccl>=1000:
+            #cast.play()
+            #time.sleep(0.3)
+
+        if len(w_pre2)>2 and 500<np.abs(w_pre2[-1]-w_pre2[-2]) and np.abs(w_pre2[-1]-w_pre2[-2])<1500 and zAccl>1500:
+            turn.play()
+            time.sleep(0.3)
 
         time.sleep(0.01)
 
