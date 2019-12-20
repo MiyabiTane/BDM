@@ -1,4 +1,8 @@
-## BDM（ビックリドッキリメカ）をつくる
+# DisShoes
+完成作品の動画は[こちらをクリックして](https://youtu.be/m2iPEg8bOUQ)見てください。<br>
+@ayarimatsui と２人で作ったBDM（ビックリドッキリメカ）です。毎日歩くのが楽しくなる！そんな靴を目指しました。<br>
+<img width="200" src="./images/DisShoes.jpg"><br>
+
 ### Raspberry piの基本
 **初めに用意するもの<br>**
 Raspberry pi 本体<br>
