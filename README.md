@@ -2,6 +2,12 @@
 完成作品の動画は[こちらをクリックして](https://youtu.be/m2iPEg8bOUQ)見てください。<br>
 @ayarimatsui と２人で作ったBDM（ビックリドッキリメカ）です。毎日歩くのが楽しくなる！そんな靴を目指しました。<br>
 <img width="200" src="./images/DisShoes.jpg"><br>
+**実行の仕方**<br>
+Raspberry pi上で以下を打ち込みます。
+```bash
+sudo python ./th_accl_led_speaker.py
+```
+歩行の邪魔にならないよう、電源供給にはモバイルバッテリーを用い、操作は遠隔でPCから行うようにしました。<br>
 
 ### Raspberry piの基本
 **初めに用意するもの<br>**
